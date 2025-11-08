@@ -175,7 +175,7 @@ Row headerParts() {
   return Row(
     children: [
       Text(
-        "What are you \n cooking today?",
+        "BantAI.ph",
         style: TextStyle(
           fontSize: 32,
           fontWeight: FontWeight.bold,

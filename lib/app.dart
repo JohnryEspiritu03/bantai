@@ -1,17 +1,102 @@
+import 'package:bantai/core/constant/app_colors.dart';
+import 'package:bantai/presentation/pages/archive/archive_page.dart';
 import 'package:flutter/material.dart';
-import 'presentation/pages/home/home_page.dart';
-import 'presentation/themes/app_theme.dart';
+import 'package:iconsax/iconsax.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+import 'presentation/pages/home/home_page.dart';
+
+class AppMainScreen extends StatefulWidget {
+  const AppMainScreen({super.key});
 
   @override
+  State<AppMainScreen> createState() => _AppMainScreenState();
+}
+
+class _AppMainScreenState extends State<AppMainScreen> {
+  int selectedIndex = 0;
+  late final List<Widget> page;
+  @override
+  void initState() {
+    page = [
+      const MyAppHomeScreen(),
+      const ArchivePage(),
+      navBarPage(Iconsax.calendar5),
+      navBarPage(Iconsax.setting_21),
+    ];
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Hackathon MVP',
-      debugShowCheckedModeBanner: false,
-      theme: appTheme,
-      home: const MyAppHomeScreen(),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        iconSize: 26,
+        currentIndex: selectedIndex,
+        selectedItemColor: AppColors.primary,
+        unselectedItemColor: Colors.grey,
+        type: BottomNavigationBarType.fixed,
+        selectedLabelStyle: TextStyle(
+          color: AppColors.primary,
+          fontWeight: FontWeight.w600,
+        ),
+        unselectedLabelStyle: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+        ),
+        onTap: (value) {
+          setState(() {
+            selectedIndex = value;
+          });
+        },
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(
+              selectedIndex == 0 ? Iconsax.home5 : Iconsax.home,
+            ),
+            label: "Home",
+          ),
+          BottomNavigationBarItem(
+            icon: SizedBox(
+              height: 32,
+              child: Center(
+                child: Icon(
+                  selectedIndex == 1 ? Iconsax.heart1 : Iconsax.heart,
+                ),
+              ),
+            ),
+            label: "Favorite",
+          ),
+          BottomNavigationBarItem(
+            icon: SizedBox(
+              height: 28,
+              child: Center(
+                child: Icon(
+                  selectedIndex == 2 ? Iconsax.calendar_21 : Iconsax.calendar_1,
+                ),
+              ),
+            ),
+            label: "Meal Plan",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              selectedIndex == 3 ? Iconsax.setting_21 : Iconsax.setting_2,
+            ),
+            label: "Setting",
+          ),
+        ],
+      ),
+      body: page[selectedIndex],
+    );
+  }
+  navBarPage(iconName) {
+    return Center(
+      child: Icon(
+        iconName,
+        size: 100,
+        color: AppColors.primary,
+      ),
     );
   }
 }

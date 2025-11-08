@@ -1,4 +1,4 @@
-import 'package:bantai/presentation/pages/main_screen.dart';
+import 'package:bantai/app.dart';
 import 'package:bantai/provider/favorite_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
