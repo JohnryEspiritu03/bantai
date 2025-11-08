@@ -33,7 +33,7 @@ class _MyAppHomeScreenState extends State<MyAppHomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 10),
-                headerParts(),
+                headerParts(context),
                 const SizedBox(height: 15),
                 const BannerToExplore(),
                 const SizedBox(height: 20),
@@ -118,9 +118,10 @@ class _MyAppHomeScreenState extends State<MyAppHomeScreen> {
       ),
     );
   }
+
 }
 
-  Row headerParts() {
+  Row headerParts(BuildContext context) {
     return Row(
       children: [
         const Text(
@@ -135,7 +136,23 @@ class _MyAppHomeScreenState extends State<MyAppHomeScreen> {
         const Spacer(),
         MyIconButton(
           icon: Iconsax.settings2,
-          pressed: () {},
+          pressed: () {
+            showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: Text('Settings',
+                  style: const TextStyle(
+                      fontFamily: 'Poppins', fontWeight: FontWeight.bold)),
+              content: Text('Hello', style: const TextStyle(fontFamily: 'Poppins')),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text("Close",
+                      style: TextStyle(fontFamily: 'Poppins')),
+                ),
+              ],
+            ),
+          );},
         ),
       ],
     );
