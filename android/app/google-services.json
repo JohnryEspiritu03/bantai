@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "746544222955",
+    "project_id": "bantai-c2f83",
+    "storage_bucket": "bantai-c2f83.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:746544222955:android:94481fc336a307f0c4e4ae",
+        "android_client_info": {
+          "package_name": "com.example.bantai"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAW0_237lx_wF8nKY5cHkZVjUTfQFu7dXo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
