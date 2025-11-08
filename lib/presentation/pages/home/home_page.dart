@@ -1,4 +1,3 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:bantai/presentation/pages/home/preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +33,6 @@ class MyAppHomeScreen extends StatefulWidget {
         MyIconButton(
           icon: Iconsax.settings2,
           pressed: () {
-            AudioPlayer().play(AssetSource('alarm.mp3'));
             showDialog(
               context: context,
               builder: (context) => AlertDialog(
