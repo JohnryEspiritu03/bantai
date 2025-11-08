@@ -22,7 +22,7 @@ class BannerToExplore extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children:[
                 const Text(
-                  "Cook the best \nrecipes at home",
+                  "Earthquake \nReports",
                   style: TextStyle(
                       height: 1.1,
                       fontSize: 22,
@@ -50,14 +50,6 @@ class BannerToExplore extends StatelessWidget {
                   ),
                 ),
               ],
-            ),
-          ),
-          Positioned(
-            top: 0,
-            bottom: 0,
-            right: -20,
-            child: Image.asset(
-                'assets/images/chef_PNG190.png'
             ),
           ),
         ],

@@ -1,6 +1,8 @@
 import 'package:bantai/core/constant/app_colors.dart';
 import 'package:bantai/presentation/pages/archive/archive_page.dart';
+import 'package:bantai/presentation/pages/guides/guides_page.dart';
 import 'package:flutter/material.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:iconsax/iconsax.dart';
 
 import 'presentation/pages/home/home_page.dart';
@@ -21,7 +23,7 @@ class _AppMainScreenState extends State<AppMainScreen> {
       const MyAppHomeScreen(),
       const ArchivePage(),
       navBarPage(Iconsax.calendar5),
-      navBarPage(Iconsax.setting_21),
+      const GuidesPage(),
     ];
     super.initState();
   }
@@ -53,7 +55,7 @@ class _AppMainScreenState extends State<AppMainScreen> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(
-              selectedIndex == 0 ? Iconsax.home5 : Iconsax.home,
+              selectedIndex == 1 ? Iconsax.home : Iconsax.home5,
             ),
             label: "Home",
           ),
@@ -62,11 +64,11 @@ class _AppMainScreenState extends State<AppMainScreen> {
               height: 32,
               child: Center(
                 child: Icon(
-                  selectedIndex == 1 ? Iconsax.heart1 : Iconsax.heart,
+                  selectedIndex == 1 ? Iconsax.archive_21 : Iconsax.archive,
                 ),
               ),
             ),
-            label: "Favorite",
+            label: "Archive",
           ),
           BottomNavigationBarItem(
             icon: SizedBox(
@@ -77,13 +79,13 @@ class _AppMainScreenState extends State<AppMainScreen> {
                 ),
               ),
             ),
-            label: "Meal Plan",
+            label: "Reports",
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              selectedIndex == 3 ? Iconsax.setting_21 : Iconsax.setting_2,
+              selectedIndex == 3 ? Iconsax.settings : Iconsax.setting_2,
             ),
-            label: "Setting",
+            label: "Guides",
           ),
         ],
       ),
