@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_application_1/Widget/banner.dart';
-// import 'package:flutter_application_1/Widget/food_items_display.dart';
-// import 'package:flutter_application_1/Widget/my_icon_button.dart';
-// import 'package:flutter_application_1/utils/constants.dart';
+import '/widgets/banner.dart';
+import '/widgets/food_items_display.dart';
+import '/widgets/my_icon_button.dart';
 // import 'package:flutter_application_1/views/view_all_items.dart';
+import '/core/constant/app_colors.dart';
 import 'package:iconsax/iconsax.dart';
 
 class MyAppHomeScreen extends StatefulWidget {
@@ -25,7 +25,7 @@ class _MyAppHomeScreenState extends State<MyAppHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kbackgroundColor,
+      backgroundColor: AppColors.background,
       body: SafeArea(
           child: SingleChildScrollView(
             child: Column(
@@ -76,7 +76,7 @@ class _MyAppHomeScreenState extends State<MyAppHomeScreen> {
                                         color: category ==
                                             streamSnapshot.data!.docs[index]
                                             ["name"]
-                                            ? kPrimaryColor
+                                            ? AppColors.primary
                                             : Colors.white,
                                       ),
                                       padding: const EdgeInsets.symmetric(horizontal: 20, vertical:10),
@@ -118,17 +118,17 @@ class _MyAppHomeScreenState extends State<MyAppHomeScreen> {
                           ),
                           TextButton(
                             onPressed: (){
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_)=> ViewAllItems(),
-                                ),
-                              );
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (_)=> ViewAllItems(),
+                              //   ),
+                              // );
                             },
                             child: Text(
                               "View all",
                               style: TextStyle(
-                                color: kBannerColor,
+                                color: AppColors.bannerPrimary,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),

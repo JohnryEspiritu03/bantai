@@ -1,3 +1,4 @@
+import 'package:bantai/core/constant/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -17,7 +18,7 @@ class _AppMainScreenState extends State<AppMainScreen> {
   void initState() {
     page = [
       const MyAppHomeScreen(),
-      const ArchiveScreen(),
+      //const ArchiveScreen(),
       navBarPage(Iconsax.calendar5),
       navBarPage(Iconsax.setting_21),
     ];
@@ -32,11 +33,11 @@ class _AppMainScreenState extends State<AppMainScreen> {
         elevation: 0,
         iconSize: 26,
         currentIndex: selectedIndex,
-        selectedItemColor: kPrimaryColor,
+        selectedItemColor: AppColors.primary,
         unselectedItemColor: Colors.grey,
         type: BottomNavigationBarType.fixed,
         selectedLabelStyle: TextStyle(
-          color: kPrimaryColor,
+          color: AppColors.primary,
           fontWeight: FontWeight.w600,
         ),
         unselectedLabelStyle: TextStyle(
@@ -93,7 +94,7 @@ class _AppMainScreenState extends State<AppMainScreen> {
       child: Icon(
         iconName,
         size: 100,
-        color: kPrimaryColor,
+        color: AppColors.primary,
       ),
     );
   }

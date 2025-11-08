@@ -1,5 +1,5 @@
+import 'package:bantai/core/constant/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/utils/constants.dart';
 
 class BannerToExplore extends StatelessWidget {
   const BannerToExplore({super.key});
@@ -11,7 +11,7 @@ class BannerToExplore extends StatelessWidget {
       height: 170,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: kBannerColor,
+        color: AppColors.bannerPrimary,
       ),
       child: Stack(
         children: [
