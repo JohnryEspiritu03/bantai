@@ -59,6 +59,22 @@ class EarthquakeArchiveDisplay extends StatelessWidget {
                     color: Colors.black54,
                   ),
                 ),
+                Text(
+                  "Coordinates: ${documentSnapshot["Latitude"]}, ${documentSnapshot["Longitude"]}",
+                  style: const TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 12,
+                    color: Colors.black54,
+                  ),
+                ),
+                Text(
+                  "Radius: ${documentSnapshot["Radius"]}",
+                  style: const TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 12,
+                    color: Colors.black54,
+                  ),
+                ),
               ],
             ),
           ),

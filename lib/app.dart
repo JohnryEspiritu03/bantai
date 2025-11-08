@@ -1,6 +1,7 @@
 import 'package:bantai/core/constant/app_colors.dart';
 import 'package:bantai/presentation/pages/archive/archive_page.dart';
 import 'package:bantai/presentation/pages/guides/guides_page.dart';
+import 'package:bantai/presentation/pages/report/ReportPage.dart';
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:iconsax/iconsax.dart';
@@ -22,7 +23,7 @@ class _AppMainScreenState extends State<AppMainScreen> {
     page = [
       const MyAppHomeScreen(),
       const ArchivePage(),
-      navBarPage(Iconsax.calendar5),
+      const ReportPage(),
       const GuidesPage(),
     ];
     super.initState();

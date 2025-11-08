@@ -1,4 +1,3 @@
-import 'package:bantai/class/Earthquake.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -13,12 +12,12 @@ class ArchivePage extends StatefulWidget {
 }
 
 class _ArchivePageState extends State<ArchivePage> {
-  String category = "All";
-  final CollectionReference earthquakeArchive = FirebaseFirestore.instance.collection("category");
+  String geo_area = "All";
+  final CollectionReference earthquakeArchive = FirebaseFirestore.instance.collection("geographical-area");
   // for all items display
-  Query get filteredearthquakes => FirebaseFirestore.instance.collection("earthquake-data").where('category', isEqualTo: category,);
-  Query get allEarthquakeData => FirebaseFirestore.instance.collection("earthquake-data");
-  Query get selectedEarthquakes => category == "All" ? allEarthquakeData: filteredearthquakes;
+  Query get filteredEarthquakes => FirebaseFirestore.instance.collection("earthquake-data").orderBy('Date', descending: true).orderBy('Time', descending: true).where('GeoArea', isEqualTo: geo_area);
+  Query get allEarthquakeData => FirebaseFirestore.instance.collection("earthquake-data").orderBy('Date', descending: true).orderBy('Time', descending: true);
+  Query get selectedEarthquakes => geo_area == "All" ? allEarthquakeData: filteredEarthquakes;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +27,7 @@ class _ArchivePageState extends State<ArchivePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 10),
+                SizedBox(height: 12),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),
                   child: Column(
@@ -62,13 +61,13 @@ class _ArchivePageState extends State<ArchivePage> {
                                       (index)=>GestureDetector(
                                     onTap: (){
                                       setState(() {
-                                        category = streamSnapshot.data!.docs[index]["name"];
+                                        geo_area = streamSnapshot.data!.docs[index]["name"];
                                       });
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(25),
-                                        color: category ==
+                                        color: geo_area ==
                                             streamSnapshot.data!.docs[index]
                                             ["name"]
                                             ? AppColors.primary
@@ -79,7 +78,7 @@ class _ArchivePageState extends State<ArchivePage> {
                                       child: Text(
                                         streamSnapshot.data!.docs[index]["name"],
                                         style: TextStyle(
-                                          color: category ==
+                                          color: geo_area ==
                                               streamSnapshot.data!.docs[index]
                                               ["name"]
                                               ? Colors.white
@@ -93,7 +92,6 @@ class _ArchivePageState extends State<ArchivePage> {
                               ),
                             );
                           }
-                          // it means if snapshot has date then show the date
                           return Center(
                             child: CircularProgressIndicator(),
                           );
@@ -111,34 +109,11 @@ class _ArchivePageState extends State<ArchivePage> {
                     if(snapshot.hasData){
                       final List<DocumentSnapshot> earthquakes =
                           snapshot.data ?.docs ?? [];
-                      // return Padding(
-                      //   padding: const EdgeInsets.only(top: 5, left: 15),
-                      //   child: SingleChildScrollView(
-                      //     scrollDirection: Axis.horizontal,
-                      //     child: Row(
-                      //       children: earthquakes
-                      //           .map((e) => EarthquakeArchiveDisplay(documentSnapshot: e))
-                      //           .toList(),
-                      //     ),
-                      //   ),
-                      // );
-
-                      // return Padding(
-                      //   padding: const EdgeInsets.only(top: 5, left: 15),
-                      //   child: ListView.builder(
-                      //     shrinkWrap: true,
-                      //     itemCount: earthquakes.length,
-                      //     itemBuilder: (BuildContext context, int index) {
-                      //       final DocumentSnapshot e = earthquakes[index];
-                      //       return EarthquakeArchiveDisplay(documentSnapshot: e);
-                      //     },
-                      //   ),
-                      // );
 
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                         child: SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.7, // adjust height as needed
+                          height: MediaQuery.of(context).size.height * 1,
                           child: ListView.builder(
                             itemCount: earthquakes.length,
                             itemBuilder: (context, index) {
@@ -151,34 +126,6 @@ class _ArchivePageState extends State<ArchivePage> {
                           ),
                         ),
                       );
-
-                      // final List<Earthquake> items = snapshot.data!.docs.map((doc) {
-                      //   return Earthquake.fromFirestore(doc.data() as Map<String, dynamic>, doc.id);
-                      // }).toList();
-                      //
-                      // // ... (Build the ListView below)
-                      // return ListView.builder(
-                      //     itemCount: items.length,
-                      //     itemBuilder: (context, index) {
-                      //       final item = items[index];
-                      //       return Card(
-                      //         margin: EdgeInsets.all(8.0),
-                      //         child: Padding(
-                      //           padding: EdgeInsets.all(16.0),
-                      //           child: Column(
-                      //             crossAxisAlignment: CrossAxisAlignment.start,
-                      //             children: [
-                      //               Text('ID: ${item.id}', style: TextStyle(
-                      //                   fontWeight: FontWeight.bold)),
-                      //               Text(item.location),
-                      //               Text(item.latitude),
-                      //               Text(item.longitude),
-                      //             ],
-                      //           ),
-                      //         ),
-                      //       );
-                      //     }
-                      // );
 
                     }
                     return Center(
