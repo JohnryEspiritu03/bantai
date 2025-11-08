@@ -70,7 +70,7 @@ class BannerToExplore extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
             const Text(
-            "Monthly Earthquake Summary",
+            "Monthly Earthquake\nReport Summary",
             style: TextStyle(
               color: Colors.white,
               fontSize: 22,
@@ -85,25 +85,25 @@ class BannerToExplore extends StatelessWidget {
                 fontSize: 14,
               ),
             ),
-            const SizedBox(height: 12),
-            Wrap(
-              spacing: 10,
-              runSpacing: 6,
-              children: statusCounts.entries.map((entry) {
-                final status = entry.key;
-                final count = entry.value;
-                return Chip(
-                  backgroundColor: Colors.white.withOpacity(0.9),
-                  label: Text(
-                    "$status: $count",
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                    ),
-                  ),
-                );
-              }).toList(),
-            ),
+            // const SizedBox(height: 12),
+            // Wrap(
+            //   spacing: 10,
+            //   runSpacing: 1,
+            //   children: statusCounts.entries.map((entry) {
+            //     final status = entry.key;
+            //     final count = entry.value;
+            //     return Chip(
+            //       backgroundColor: Colors.white.withOpacity(0.9),
+            //       label: Text(
+            //         "$status: $count",
+            //         style: const TextStyle(
+            //           fontWeight: FontWeight.bold,
+            //           color: Colors.black87,
+            //         ),
+            //       ),
+            //     );
+            //   }).toList(),
+            // ),
             ],
           ),
         );

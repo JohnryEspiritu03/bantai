@@ -11,14 +11,14 @@ class GuidesPage extends StatefulWidget {
 }
 
 class _GuidesPageState extends State<GuidesPage> {
-
-
   // toolkits
   List<Map<String, dynamic>> toolkits = [
-    {"name": "First Aid Kit", "icon": Iconsax.home, "checked": false},
+    {"name": "First Aid Kit", "icon": Iconsax.briefcase, "checked": false},
     {"name": "Emergency Bag", "icon": Iconsax.briefcase, "checked": false},
     {"name": "Evacuation Plan", "icon": Iconsax.map, "checked": false},
-    {"name": "Evacuation Plan", "icon": Iconsax.map, "checked": false},
+    {"name": "Flashlight", "icon": Iconsax.lamp, "checked": false},
+    {"name": "Water Supply", "icon": Iconsax.drop, "checked": false},
+    {"name": "Whistle", "icon": Iconsax.notification, "checked": false},
   ];
 
   double get overallProgress {
@@ -29,168 +29,196 @@ class _GuidesPageState extends State<GuidesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: AppColors.background,
-        body: SafeArea(
-            child: SingleChildScrollView(
-                child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // safety guides
-                          const Text(
-                            "Earthquake Safety Guides",
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          buildSafetyGuides(),
-
-                          const SizedBox(height: 25),
-
-                          //tool kits
-                          const Text(
-                            "Preparedness Tool Kits",
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          buildToolKits(),
-
-                          const SizedBox(height: 25),
-
-                          //safety level
-                          buildGamificationProgress(),
-                          const SizedBox(height: 40),
-                          ]
-                    ),
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Safety Guides
+              const Text(
+                "Safety Guides",
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  height: 1,
+                  fontFamily: 'Poppins',
+                  color: AppColors.textPrimary,
                 ),
-            ),
+              ),
+              const SizedBox(height: 15),
+              buildSafetyGuides(),
+
+              const SizedBox(height: 30),
+
+              // Tool Kits
+              const Text(
+                "Preparedness Tool Kits",
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 15),
+              buildToolKits(),
+
+              const SizedBox(height: 25),
+
+              // Safety Level
+              buildGamificationProgress(),
+              const SizedBox(height: 40),
+            ],
+          ),
         ),
+      ),
     );
   }
-
 
   Widget buildSafetyGuides() {
     final List<Map<String, dynamic>> guides = [
       {
-        "title": "Before an Earthquake",
-        "desc": "Secure furniture, prepare emergency kits, and ensure safety measures at home.",
+        "title": "Before",
+        "desc": "Secure furniture and prepare emergency kits.",
         "icon": Iconsax.box,
         "color": Colors.greenAccent.shade100
       },
       {
-        "title": "During an Earthquake",
-        "desc": "Drop, cover, and hold on under sturdy furniture, avoid windows and hanging objects.",
+        "title": "During",
+        "desc": "Drop, cover, and hold on. Avoid windows.",
         "icon": Iconsax.shield_cross,
         "color": Colors.lightGreen.shade100
       },
       {
-        "title": "After an Earthquake",
-        "desc": "Check for injuries, damages, and aftershocks. Stay alert and follow evacuation protocols.",
+        "title": "After",
+        "desc": "Check for injuries and damages.",
         "icon": Iconsax.activity,
         "color": Colors.green.shade100
       },
     ];
 
-    return Column(
-      children: guides
-          .map(
-            (g) => GestureDetector(
-          onTap: () {
-            showDialog(
-              context: context,
-              builder: (context) => AlertDialog(
-                title: Text(g['title'],
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: guides.map((g) {
+          return GestureDetector(
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: Text(
+                    g['title'],
                     style: const TextStyle(
-                        fontFamily: 'Poppins', fontWeight: FontWeight.bold)),
-                content: Text(g['desc'], style: const TextStyle(fontFamily: 'Poppins')),
-                actions: [
-                  TextButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text("Close",
-                        style: TextStyle(fontFamily: 'Poppins')),
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  content: Text(
+                    g['desc'],
+                    style: const TextStyle(fontFamily: 'Poppins'),
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text(
+                        "Close",
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          color: AppColors.primary,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+            child: Container(
+              width: 160,
+              margin: const EdgeInsets.only(right: 15),
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: g['color'],
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 4,
+                    offset: Offset(0, 2),
                   ),
                 ],
               ),
-            );
-          },
-          child: Card(
-            color: g['color'],
-            elevation: 2,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12)),
-            child: ListTile(
-              leading: CircleAvatar(
-                backgroundColor: Colors.white,
-                child: Icon(g['icon'], color: AppColors.bannerPrimary),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    g['icon'],
+                    size: 48, // 🔹 Large icon
+                    color: AppColors.bannerPrimary,
+                  ),
+                  const SizedBox(height: 12),
+                  Text(
+                    g['title'],
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
               ),
-              title: Text(
-                g['title'],
-                style: const TextStyle(
-                    fontFamily: 'Poppins', fontWeight: FontWeight.bold),
-              ),
-              trailing: const Icon(Iconsax.arrow_right_3),
             ),
-          ),
-        ),
-      )
-          .toList(),
+          );
+        }).toList(),
+      ),
     );
   }
 
-  //toolkits
   Widget buildToolKits() {
-    return Column(
-      children: toolkits
-          .map(
-            (t) => Container(
-          margin: const EdgeInsets.only(bottom: 10),
-          padding:
-          const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+    return GridView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemCount: toolkits.length,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 12,
+        mainAxisSpacing: 12,
+        childAspectRatio: 1.8,
+      ),
+      itemBuilder: (context, index) {
+        final t = toolkits[index];
+        return Container(
+          padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
             boxShadow: const [
               BoxShadow(
-                  color: Colors.black12, blurRadius: 3, offset: Offset(0, 1))
+                color: Colors.black12,
+                blurRadius: 4,
+                offset: Offset(0, 1),
+              ),
             ],
           ),
           child: Row(
             children: [
-              Icon(t['icon'], color: AppColors.bannerPrimary, size: 28),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      t['name'],
-                      style: const TextStyle(
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: LinearProgressIndicator(
-                        value: t['checked'] ? 1.0 : 0.0,
-                        minHeight: 6,
-                        color: AppColors.bannerPrimary,
-                        backgroundColor: Colors.grey.shade200,
-                      ),
-                    ),
-                  ],
-                ),
+              Icon(
+                t['icon'],
+                color: AppColors.bannerPrimary,
+                size: 32,
               ),
               const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  t['name'],
+                  style: const TextStyle(
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13,
+                  ),
+                ),
+              ),
               Checkbox(
                 value: t['checked'],
                 onChanged: (val) {
@@ -202,13 +230,12 @@ class _GuidesPageState extends State<GuidesPage> {
               ),
             ],
           ),
-        ),
-      )
-          .toList(),
+        );
+      },
     );
   }
 
-  // GAMIFICATION PROGRESS BASED ON TOOLKITS
+  // 🪙 SAFETY LEVEL / GAMIFICATION
   Widget buildGamificationProgress() {
     final progress = overallProgress;
     return Container(
@@ -248,9 +275,9 @@ class _GuidesPageState extends State<GuidesPage> {
             }),
           ),
           const SizedBox(height: 5),
-          Text(
+          const Text(
             "Complete toolkits to increase your safety level!",
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Poppins',
               fontSize: 12,
               color: Colors.black54,
@@ -261,4 +288,3 @@ class _GuidesPageState extends State<GuidesPage> {
     );
   }
 }
-

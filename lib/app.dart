@@ -3,7 +3,6 @@ import 'package:bantai/presentation/pages/archive/archive_page.dart';
 import 'package:bantai/presentation/pages/guides/guides_page.dart';
 import 'package:bantai/presentation/pages/report/ReportPage.dart';
 import 'package:flutter/material.dart';
-import 'package:hugeicons/hugeicons.dart';
 import 'package:iconsax/iconsax.dart';
 
 import 'presentation/pages/home/home_page.dart';
@@ -33,7 +32,7 @@ class _AppMainScreenState extends State<AppMainScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.background,
         elevation: 0,
         iconSize: 26,
         currentIndex: selectedIndex,
@@ -41,7 +40,7 @@ class _AppMainScreenState extends State<AppMainScreen> {
         unselectedItemColor: Colors.grey,
         type: BottomNavigationBarType.fixed,
         selectedLabelStyle: TextStyle(
-          color: AppColors.primary,
+          color: AppColors.textPrimary,
           fontWeight: FontWeight.w600,
         ),
         unselectedLabelStyle: TextStyle(
@@ -65,7 +64,7 @@ class _AppMainScreenState extends State<AppMainScreen> {
               height: 32,
               child: Center(
                 child: Icon(
-                  selectedIndex == 1 ? Iconsax.archive_21 : Iconsax.archive,
+                  selectedIndex == 1 ? Iconsax.archive : Iconsax.archive,
                 ),
               ),
             ),
@@ -76,7 +75,7 @@ class _AppMainScreenState extends State<AppMainScreen> {
               height: 28,
               child: Center(
                 child: Icon(
-                  selectedIndex == 2 ? Iconsax.calendar_21 : Iconsax.calendar_1,
+                  selectedIndex == 2 ? Iconsax.note : Iconsax.note,
                 ),
               ),
             ),
@@ -98,7 +97,7 @@ class _AppMainScreenState extends State<AppMainScreen> {
       child: Icon(
         iconName,
         size: 100,
-        color: AppColors.primary,
+        color: AppColors.textPrimary,
       ),
     );
   }

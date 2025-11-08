@@ -12,7 +12,6 @@ class EarthquakeLineChart extends StatefulWidget {
 class _EarthquakeLineChartState extends State<EarthquakeLineChart> {
   String selectedFilter = "Overall";
 
-  // Hardcoded earthquake data samples
   final Map<String, List<FlSpot>> datasets = {
     "Overall": [
       FlSpot(2019, 300),
@@ -60,169 +59,175 @@ class _EarthquakeLineChartState extends State<EarthquakeLineChart> {
     ],
   };
 
-  // Labels for PH regions
   final List<String> regions = [
-    "I", "II", "III", "IV-A", "MIMAROPA",
-    "V", "VI", "VII", "VIII", "IX",
-    "X", "XI", "XII", "XIII", "BARMM",
-    "CAR", "NCR"
+    "NCR", "1", "2", "CAR", "3", "4A", "4B",
+    "5", "6", "7", "8", "9",
+    "10", "11", "12", "13", "BARMM"
   ];
 
   @override
   Widget build(BuildContext context) {
     final data = datasets[selectedFilter]!;
 
-    return Container(
-      padding: const EdgeInsets.all(15),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 4)],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Chart Header + Dropdown Filter
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                "Earthquake Statistics",
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              DropdownButton<String>(
-                value: selectedFilter,
-                dropdownColor: Colors.white,
-                style: const TextStyle(
-                  fontFamily: 'Poppins',
-                  color: Colors.black,
-                  fontSize: 14,
-                ),
-                items: [
-                  "Overall",
-                  "Per Year",
-                  "Per Region",
-                  "Per Day",
-                ]
-                    .map((filter) => DropdownMenuItem(
-                  value: filter,
-                  child: Text(filter),
-                ))
-                    .toList(),
-                onChanged: (value) {
-                  setState(() {
-                    selectedFilter = value!;
-                  });
-                },
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final chartWidth = constraints.maxWidth;
 
-          // Line Chart
-          AspectRatio(
-            aspectRatio: 1.5,
-            child: LineChart(
-              LineChartData(
-                gridData: const FlGridData(show: true),
-                borderData: FlBorderData(show: true),
-                titlesData: FlTitlesData(
-                  bottomTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: true,
-                      getTitlesWidget: (value, meta) {
-                        switch (selectedFilter) {
-                          case "Overall":
-                            return Text(
-                              value.toInt().toString(),
-                              style: const TextStyle(
-                                fontFamily: 'Poppins',
-                                fontSize: 10,
-                              ),
-                            );
-                          case "Per Year":
-                            return Text(
-                              "Q${value.toInt()}",
-                              style: const TextStyle(
-                                fontFamily: 'Poppins',
-                                fontSize: 10,
-                              ),
-                            );
-                          case "Per Region":
-                            if (value.toInt() > 0 &&
-                                value.toInt() <= regions.length) {
-                              return Text(
-                                regions[value.toInt() - 1],
-                                style: const TextStyle(
-                                  fontFamily: 'Poppins',
-                                  fontSize: 8,
-                                ),
-                              );
-                            }
-                            return const Text('');
-                          case "Per Day":
-                            return Text(
-                              "D${value.toInt()}",
-                              style: const TextStyle(
-                                fontFamily: 'Poppins',
-                                fontSize: 10,
-                              ),
-                            );
-                          default:
-                            return Text(
-                              value.toInt().toString(),
-                              style: const TextStyle(
-                                fontFamily: 'Poppins',
-                                fontSize: 10,
-                              ),
-                            );
-                        }
-                      },
-                      reservedSize: 28,
-                      interval: 1,
-                    ),
-                  ),
-                  leftTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: true,
-                      interval: 50,
-                      getTitlesWidget: (value, meta) => Text(
-                        value.toInt().toString(),
-                        style: const TextStyle(
-                          fontFamily: 'Poppins',
-                          fontSize: 10,
-                        ),
+        return Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(15),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 4)],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Title + Filter dropdown
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Flexible(
+                    child: const Text(
+                      "Earthquake Statistics",
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
                       ),
-                      reservedSize: 35,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  topTitles:
-                  const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                  rightTitles:
-                  const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                ),
-                lineBarsData: [
-                  LineChartBarData(
-                    spots: data,
-                    isCurved: true,
-                    color: AppColors.bannerPrimary,
-                    barWidth: 3,
-                    belowBarData: BarAreaData(
-                      show: true,
-                      color: AppColors.bannerPrimary.withOpacity(0.2),
+                  const SizedBox(width: 10),
+                  DropdownButton<String>(
+                    value: selectedFilter,
+                    dropdownColor: Colors.white,
+                    style: const TextStyle(
+                      fontFamily: 'Poppins',
+                      color: Colors.black,
+                      fontSize: 14,
                     ),
-                    dotData: const FlDotData(show: false),
+                    items: ["Overall", "Per Year", "Per Region", "Per Day"]
+                        .map(
+                          (filter) => DropdownMenuItem(
+                        value: filter,
+                        child: Text(filter),
+                      ),
+                    )
+                        .toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        selectedFilter = value!;
+                      });
+                    },
                   ),
                 ],
               ),
-            ),
+              const SizedBox(height: 20),
+
+              // Line Chart
+              SizedBox(
+                width: chartWidth,
+                height: 200,
+                child: LineChart(
+                  LineChartData(
+                    minX: data.first.x,
+                    maxX: data.last.x,
+                    lineBarsData: [
+                      LineChartBarData(
+                        spots: data,
+                        isCurved: true,
+                        color: AppColors.bannerPrimary,
+                        barWidth: 3,
+                        belowBarData: BarAreaData(
+                          show: true,
+                          color: AppColors.bannerPrimary.withOpacity(0.2),
+                        ),
+                        dotData: const FlDotData(show: false),
+                      ),
+                    ],
+                    gridData: const FlGridData(show: true),
+                    borderData: FlBorderData(
+                      show: true,
+                      border: Border.all(color: Colors.grey.shade300),
+                    ),
+                    titlesData: FlTitlesData(
+                      bottomTitles: AxisTitles(
+                        sideTitles: SideTitles(
+                          showTitles: true,
+                          interval: 1,
+                          reservedSize: 28,
+                          getTitlesWidget: (value, meta) {
+                            switch (selectedFilter) {
+                              case "Overall":
+                                return Text(
+                                  value.toInt().toString(),
+                                  style: const TextStyle(
+                                    fontFamily: 'Poppins',
+                                    fontSize: 10,
+                                  ),
+                                );
+                              case "Per Year":
+                                return Text(
+                                  "Q${value.toInt()}",
+                                  style: const TextStyle(
+                                    fontFamily: 'Poppins',
+                                    fontSize: 10,
+                                  ),
+                                );
+                              case "Per Region":
+                                if (value.toInt() > 0 &&
+                                    value.toInt() <= regions.length) {
+                                  return Text(
+                                    regions[value.toInt() - 1],
+                                    style: const TextStyle(
+                                      fontFamily: 'Poppins',
+                                      fontSize: 8,
+                                    ),
+                                  );
+                                }
+                                return const Text('');
+                              case "Per Day":
+                                return Text(
+                                  "D${value.toInt()}",
+                                  style: const TextStyle(
+                                    fontFamily: 'Poppins',
+                                    fontSize: 10,
+                                  ),
+                                );
+                              default:
+                                return const Text('');
+                            }
+                          },
+                        ),
+                      ),
+                      leftTitles: AxisTitles(
+                        sideTitles: SideTitles(
+                          showTitles: true,
+                          interval: 50,
+                          reservedSize: 35,
+                          getTitlesWidget: (value, meta) => Text(
+                            value.toInt().toString(),
+                            style: const TextStyle(
+                              fontFamily: 'Poppins',
+                              fontSize: 10,
+                            ),
+                          ),
+                        ),
+                      ),
+                      topTitles:
+                      const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                      rightTitles:
+                      const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

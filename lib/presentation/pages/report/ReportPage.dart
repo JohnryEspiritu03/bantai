@@ -55,6 +55,7 @@ class _ReportPageState extends State<ReportPage> {
                 fontFamily: 'Poppins',
                 fontWeight: FontWeight.bold,
                 fontSize: 24,
+                color: AppColors.textPrimary,
               ),
             ),
             const SizedBox(height: 20),
@@ -64,13 +65,22 @@ class _ReportPageState extends State<ReportPage> {
               initialValue: _name,
               decoration: InputDecoration(
                 labelText: 'Name',
+                labelStyle: const TextStyle(
+                  fontFamily: 'Poppins',
+                  color: AppColors.textPrimary
+                ),
                 border: const OutlineInputBorder(),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: AppColors.borderColor,
+                    color: AppColors.primary,
                     width: 2.0,
                   ),
                 ),
+              ),
+              style: const TextStyle(
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.normal,
+                fontSize: 15,
               ),
               validator: (value) =>
               value == null || value.isEmpty ? 'Please enter your name' : null,
@@ -78,7 +88,6 @@ class _ReportPageState extends State<ReportPage> {
             ),
             const SizedBox(height: 20),
 
-            // Region Dropdown
             StreamBuilder<QuerySnapshot>(
               stream: _regionsRef.orderBy('Region').snapshots(),
               builder: (context, snapshot) {
@@ -97,7 +106,6 @@ class _ReportPageState extends State<ReportPage> {
             ),
             const SizedBox(height: 20),
 
-            // Province Dropdown (all provinces)
             StreamBuilder<QuerySnapshot>(
               stream: _provincesRef.orderBy('Province').snapshots(),
               builder: (context, snapshot) {
@@ -116,7 +124,6 @@ class _ReportPageState extends State<ReportPage> {
             ),
             const SizedBox(height: 20),
 
-            // Affected Individuals
             Row(
               children: [
                 Expanded(
@@ -124,13 +131,19 @@ class _ReportPageState extends State<ReportPage> {
                     initialValue: _affectedCount.toString(),
                     decoration: InputDecoration(
                       labelText: 'Number of affected individuals',
+                      labelStyle: const TextStyle(
+                        fontFamily: 'Poppins', color: AppColors.textPrimary
+                      ),
                       border: const OutlineInputBorder(),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: AppColors.borderColor,
+                          color: AppColors.primary,
                           width: 2.0,
                         ),
                       ),
+                    ),
+                    style: const TextStyle(
+                      fontFamily: 'Poppins',
                     ),
                     keyboardType: TextInputType.number,
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -141,7 +154,6 @@ class _ReportPageState extends State<ReportPage> {
                   ),
                 ),
                 const SizedBox(width: 12),
-                // Optional Stepper buttons
                 Column(
                   children: [
                     IconButton(
@@ -183,36 +195,43 @@ class _ReportPageState extends State<ReportPage> {
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
                 decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(color: Colors.grey.shade400, width: 1),
+                  color: AppColors.background,
+                  border: Border.all(color: AppColors.textPrimary, width: 1),
                   borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(
                     'Incident Date: ${_incidentDate.toLocal().toIso8601String().substring(0, 10)}',
+                    style: const TextStyle(fontFamily: 'Poppins', color: AppColors.textPrimary),
                   ),
                 ),
               ),
               const SizedBox(height: 20),
 
-              // Remarks / Notes
               TextFormField(
                 maxLines: 3,
                 decoration: InputDecoration(
                   labelText: 'Remarks / Notes',
+                  labelStyle: const TextStyle(fontFamily: 'Poppins', color: AppColors.textPrimary),
                   border: const OutlineInputBorder(),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: AppColors.borderColor,
+                      color: AppColors.primary,
                       width: 2.0,
                     ),
                   ),
                 ),
+                style: const TextStyle(fontFamily: 'Poppins', color: AppColors.textPrimary),
                 onSaved: (val) => _remarks = val,
               ),
               const SizedBox(height: 30),
 
               // Submit Button
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primary,
+                  foregroundColor: Colors.white,
+                  textStyle: const TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.bold),
+                ),
                 onPressed: () async {
                   if (!_formKey.currentState!.validate()) return;
                   _formKey.currentState!.save();
@@ -234,7 +253,6 @@ class _ReportPageState extends State<ReportPage> {
                     const SnackBar(content: Text('Report submitted successfully')),
                   );
 
-                  // Reset form
                   setState(() {
                     _name = '';
                     _selectedRegion = null;
@@ -257,7 +275,6 @@ class _ReportPageState extends State<ReportPage> {
     );
   }
 
-  /// Reusable dropdown container
   Widget buildDropdown({
     required String hint,
     required List<String> items,
@@ -269,18 +286,18 @@ class _ReportPageState extends State<ReportPage> {
         padding: const EdgeInsets.symmetric(horizontal: 12),
         decoration: BoxDecoration(
           color: Colors.white,
-          border: Border.all(color: Colors.grey.shade400, width: 1),
+          border: Border.all(color: AppColors.textPrimary, width: 1),
           borderRadius: BorderRadius.circular(8),
           ),
           child: DropdownButtonHideUnderline(
             child: DropdownButton<String>(
               isExpanded: true,
-              hint: Text(hint),
+              hint: Text(hint, style: const TextStyle(fontFamily: 'Poppins', color: AppColors.textPrimary)),
               value: value,
               items: items
                   .map((v) => DropdownMenuItem<String>(
                 value: v,
-                child: Text(v),
+                child: Text(v, style: const TextStyle(fontFamily: 'Poppins', color: AppColors.textPrimary)),
               ))
                   .toList(),
               onChanged: onChanged,

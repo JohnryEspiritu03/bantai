@@ -1,14 +1,15 @@
 import 'package:bantai/presentation/pages/home/preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import '../../../widgets/earthquake_map.dart';
 import '../../../services/notification_services.dart';
 import '../../../widgets/line_chart.dart';
 import '/widgets/banner.dart';
-import '/widgets/earthquake_archive_display.dart';
 import '/widgets/my_icon_button.dart';
-// import 'package:flutter_application_1/views/view_all_items.dart';
 import '/core/constant/app_colors.dart';
 import 'package:iconsax/iconsax.dart';
+
+import 'map_fullscreen.dart';
 
 class MyAppHomeScreen extends StatefulWidget {
   const MyAppHomeScreen({super.key});
@@ -31,7 +32,7 @@ class MyAppHomeScreen extends StatefulWidget {
         ),
         const Spacer(),
         MyIconButton(
-          icon: Iconsax.settings2,
+          icon: Iconsax.settings,
           pressed: () {
             Navigator.push(
               context,
@@ -69,11 +70,11 @@ class _MyAppHomeScreenState extends State<MyAppHomeScreen> {
           final magnitude = newDoc['magnitude']?.toString() ?? 'N/A';
           final date = newDoc['date'] ?? '';
 
-          // Show notification (popup-style)
-          NotificationService.showNotification(
-            title: 'New Earthquake Reported!',
-            body: 'Magnitude $magnitude earthquake at $location. ($date)',
-          );
+          // // Show notification (popup-style)
+          // NotificationService.showNotification(
+          //   title: 'New Earthquake Reported!',
+          //   body: 'Magnitude $magnitude earthquake at $location. ($date)',
+          // );
         }
       }
     });
@@ -96,7 +97,68 @@ class _MyAppHomeScreenState extends State<MyAppHomeScreen> {
                 const BannerToExplore(),
                 const SizedBox(height: 20),
 
-                // dashboards
+                //earthquake map
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [Text(
+                    "Interactive Map",
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (_) => MapTogglePage(),),);
+                      },
+                      child: Text(
+                        "View",
+                        style: TextStyle(
+                          color: AppColors.bannerPrimary,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'Poppins',
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                GestureDetector(
+                  onTap: () {
+                    // Open full screen map
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => FullScreenMapPage(),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    height: 250,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: Colors.green, width: 2),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 4,
+                          offset: Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: const EarthquakeMapWidget(),
+                    ),
+                  ),
+                ),
+
+                // DASHBOARD
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -108,70 +170,38 @@ class _MyAppHomeScreenState extends State<MyAppHomeScreen> {
                           fontSize: 20,
                           letterSpacing: 0.1,
                           fontWeight: FontWeight.bold,
+                          color: AppColors.textPrimary,
                         ),
                         overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        "View all",
-                        style: TextStyle(
-                          color: AppColors.bannerPrimary,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: 'Poppins',
-                        ),
                       ),
                     ),
                   ],
                 ),
                 const SizedBox(height: 10),
 
+                // LINE CHART
                 const EarthquakeLineChart(),
                 const SizedBox(height: 25),
-
-                const Text(
-                  "Earthquake Archives",
-                  style: TextStyle(
-                    fontFamily: 'Poppins',
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                StreamBuilder<QuerySnapshot>(
-                  stream: earthquakes.snapshots(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      final List<DocumentSnapshot> earthquakeList =
-                          snapshot.data!.docs;
-                      if (earthquakeList.isEmpty) {
-                        return const Center(
-                          child: Text(
-                            "No earthquake data available.",
-                            style: TextStyle(fontFamily: 'Poppins'),
-                          ),
-                        );
-                      }
-                      return ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: earthquakeList.length,
-                        itemBuilder: (context, index) {
-                          return EarthquakeArchiveDisplay(
-                              documentSnapshot: earthquakeList[index]);
-                        },
-                      );
-                    }
-                    return const Center(child: CircularProgressIndicator());
-                  },
-                ),
-                const SizedBox(height: 30),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+// FULL SCREEN MAP PAGE
+class FullScreenMapPage extends StatelessWidget {
+  const FullScreenMapPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Earthquake Map"),
+      ),
+      body: const EarthquakeMapWidget(),
     );
   }
 }
