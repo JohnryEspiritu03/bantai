@@ -1,4 +1,5 @@
 import 'package:bantai/presentation/pages/main_screen.dart';
+import 'package:bantai/provider/favorite_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        // ChangeNotifierProvider(create: (_)=>FavoriteProvider()),
+        ChangeNotifierProvider(create: (_)=>FavoriteProvider()),
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
