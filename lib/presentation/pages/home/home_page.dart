@@ -2,8 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../../../widgets/line_chart.dart';
 import '/widgets/banner.dart';
-import '/widgets/my_icon_button.dart';
 import '/widgets/earthquake_archive_display.dart';
+import '/widgets/my_icon_button.dart';
+// import 'package:flutter_application_1/views/view_all_items.dart';
 import '/core/constant/app_colors.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -117,6 +118,7 @@ class _MyAppHomeScreenState extends State<MyAppHomeScreen> {
       ),
     );
   }
+}
 
   Row headerParts() {
     return Row(
@@ -138,4 +140,3 @@ class _MyAppHomeScreenState extends State<MyAppHomeScreen> {
       ],
     );
   }
-}

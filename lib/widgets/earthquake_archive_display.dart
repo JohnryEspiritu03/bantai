@@ -4,18 +4,11 @@ import '/core/constant/app_colors.dart';
 import 'package:iconsax/iconsax.dart';
 
 class EarthquakeArchiveDisplay extends StatelessWidget {
-  final DocumentSnapshot documentSnapshot;
-
+  final DocumentSnapshot<Object?> documentSnapshot;
   const EarthquakeArchiveDisplay({super.key, required this.documentSnapshot});
 
   @override
   Widget build(BuildContext context) {
-    final data = documentSnapshot.data() as Map<String, dynamic>? ?? {};
-
-    final String region = data['region'] ?? 'Unknown';
-    final String magnitude = (data['magnitude']?.toString() ?? '-');
-    final String date = data['date'] ?? '-';
-
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 6),
       padding: const EdgeInsets.all(15),
@@ -35,7 +28,7 @@ class EarthquakeArchiveDisplay extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  region,
+              "${documentSnapshot["Municipality"]}, ${documentSnapshot["Province"]}",
                   style: const TextStyle(
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.bold,
@@ -44,14 +37,22 @@ class EarthquakeArchiveDisplay extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  "Magnitude: $magnitude",
+                  "Magnitude: ${documentSnapshot["Mag"]}",
                   style: const TextStyle(
                     fontFamily: 'Poppins',
                     fontSize: 12,
                   ),
                 ),
                 Text(
-                  "Date: $date",
+                  "Time: ${documentSnapshot["Time"]}",
+                  style: const TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 12,
+                    color: Colors.black54,
+                  ),
+                ),
+                Text(
+                  "Date: ${documentSnapshot["Date"]}",
                   style: const TextStyle(
                     fontFamily: 'Poppins',
                     fontSize: 12,
