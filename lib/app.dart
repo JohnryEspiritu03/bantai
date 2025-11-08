@@ -42,10 +42,12 @@ class _AppMainScreenState extends State<AppMainScreen> {
         selectedLabelStyle: TextStyle(
           color: AppColors.textPrimary,
           fontWeight: FontWeight.w600,
+          fontFamily: 'Poppins',
         ),
         unselectedLabelStyle: TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w500,
+          fontFamily: 'Poppins',
         ),
         onTap: (value) {
           setState(() {
@@ -55,7 +57,7 @@ class _AppMainScreenState extends State<AppMainScreen> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(
-              selectedIndex == 1 ? Iconsax.home : Iconsax.home5,
+              selectedIndex == 1 ? Iconsax.home : Iconsax.home,
             ),
             label: "Home",
           ),
@@ -83,7 +85,7 @@ class _AppMainScreenState extends State<AppMainScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              selectedIndex == 3 ? Iconsax.settings : Iconsax.setting_2,
+              selectedIndex == 3 ? Iconsax.information : Iconsax.information,
             ),
             label: "Guides",
           ),

@@ -78,6 +78,7 @@ class _ArchivePageState extends State<ArchivePage> {
                                       child: Text(
                                         streamSnapshot.data!.docs[index]["name"],
                                         style: TextStyle(
+                                          fontFamily: 'Poppins',
                                           color: geo_area ==
                                               streamSnapshot.data!.docs[index]
                                               ["name"]

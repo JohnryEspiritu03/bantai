@@ -84,7 +84,6 @@ class _EarthquakeLineChartState extends State<EarthquakeLineChart> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Title + Filter dropdown
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

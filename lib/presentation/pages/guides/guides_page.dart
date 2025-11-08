@@ -37,14 +37,18 @@ class _GuidesPageState extends State<GuidesPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Safety Guides
-              const Text(
-                "Safety Guides",
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  height: 1,
-                  fontFamily: 'Poppins',
-                  color: AppColors.textPrimary,
+              SizedBox(height: 12),
+              const Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: 20,
+                ),
+                child: Text(
+                  "Safety Guides",
+                  style: const TextStyle(
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24,
+                  ),
                 ),
               ),
               const SizedBox(height: 15),
@@ -153,7 +157,7 @@ class _GuidesPageState extends State<GuidesPage> {
                 children: [
                   Icon(
                     g['icon'],
-                    size: 48, // 🔹 Large icon
+                    size: 48,
                     color: AppColors.bannerPrimary,
                   ),
                   const SizedBox(height: 12),
@@ -235,7 +239,6 @@ class _GuidesPageState extends State<GuidesPage> {
     );
   }
 
-  // 🪙 SAFETY LEVEL / GAMIFICATION
   Widget buildGamificationProgress() {
     final progress = overallProgress;
     return Container(

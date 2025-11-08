@@ -25,7 +25,6 @@ class _ReportPageState extends State<ReportPage> {
   final List<String> _statusOptions = [
     'Stable',
     'Injured',
-    'Deceased',
     'Missing',
     'Displaced'
   ];

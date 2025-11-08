@@ -8,7 +8,7 @@ class BannerToExplore extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Map<String, dynamic>>(
-      future: getMonthlyReportSummary(), // ✅ Correct return type (Future<Map>)
+      future: getMonthlyReportSummary(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Container(
@@ -60,7 +60,7 @@ class BannerToExplore extends StatelessWidget {
 
         return Container(
           width: double.infinity,
-          height: 170,
+          height: 190,
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
@@ -75,6 +75,7 @@ class BannerToExplore extends StatelessWidget {
               color: Colors.white,
               fontSize: 22,
               fontWeight: FontWeight.bold,
+              fontFamily: 'Poppins',
             ),
           ),
           const SizedBox(height: 8),
@@ -83,27 +84,39 @@ class BannerToExplore extends StatelessWidget {
               style: const TextStyle(
                 color: Colors.white70,
                 fontSize: 14,
+                fontFamily: 'Poppins',
               ),
             ),
-            // const SizedBox(height: 12),
-            // Wrap(
-            //   spacing: 10,
-            //   runSpacing: 1,
-            //   children: statusCounts.entries.map((entry) {
-            //     final status = entry.key;
-            //     final count = entry.value;
-            //     return Chip(
-            //       backgroundColor: Colors.white.withOpacity(0.9),
-            //       label: Text(
-            //         "$status: $count",
-            //         style: const TextStyle(
-            //           fontWeight: FontWeight.bold,
-            //           color: Colors.black87,
-            //         ),
-            //       ),
-            //     );
-            //   }).toList(),
-            // ),
+              const SizedBox(height: 12),
+              ConstrainedBox(
+                constraints: const BoxConstraints(maxHeight: 120),
+                child: SingleChildScrollView(
+                  child: Wrap(
+                    spacing: 6, // horizontal spacing between chips
+                    runSpacing: 6, // vertical spacing
+                    children: statusCounts.entries.map((entry) {
+                      final status = entry.key;
+                      final count = entry.value;
+                      return Chip(
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        backgroundColor: Colors.transparent,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          side: const BorderSide(color: Colors.white, width: 1.2),
+                        ),
+                        label: Text(
+                          "$status: $count",
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.primary,
+                            fontSize: 12,
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ),
             ],
           ),
         );
@@ -112,7 +125,6 @@ class BannerToExplore extends StatelessWidget {
   }
 }
 
-/// ✅ Properly typed and structured Firestore query
 Future<Map<String, dynamic>> getMonthlyReportSummary() async {
   final now = DateTime.now();
   final firstDayOfMonth = DateTime(now.year, now.month, 1);

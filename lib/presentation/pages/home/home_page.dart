@@ -1,8 +1,8 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:bantai/presentation/pages/home/preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../../../widgets/earthquake_map.dart';
-import '../../../services/notification_services.dart';
 import '../../../widgets/line_chart.dart';
 import '/widgets/banner.dart';
 import '/widgets/my_icon_button.dart';
@@ -22,13 +22,48 @@ class MyAppHomeScreen extends StatefulWidget {
     return Row(
       children: [
         const Text(
-          "BantAI PH",
+          "BantayPH",
           style: TextStyle(
             fontSize: 32,
             fontWeight: FontWeight.bold,
             height: 1,
             fontFamily: 'Poppins',
           ),
+        ),
+        const Spacer(),
+        MyIconButton(
+          icon: Iconsax.settings2,
+          pressed: () {
+            AudioPlayer().play(AssetSource('alarm.mp3'));
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: Text(
+                  "Earthquake Alert",
+                  style: const TextStyle(
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                content: Text(
+                  "A magnitude 5.9 earthquake was recorded with the epicenter in EM's Barrio East. Leagzpi City, Albay at 11:34 AM today, November 9",
+                  style: const TextStyle(fontFamily: 'Poppins'),
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text(
+                      "Close",
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
+                        color: AppColors.primary,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
         ),
         const Spacer(),
         MyIconButton(
@@ -47,8 +82,7 @@ class MyAppHomeScreen extends StatefulWidget {
   }
 
 class _MyAppHomeScreenState extends State<MyAppHomeScreen> {
-  final CollectionReference earthquakes =
-  FirebaseFirestore.instance.collection("earthquake_data");
+  final CollectionReference earthquakes = FirebaseFirestore.instance.collection("earthquake-data");
 
   Stream<QuerySnapshot>? _earthquakeStream;
   List<String> _knownDocIds = [];
@@ -66,15 +100,9 @@ class _MyAppHomeScreenState extends State<MyAppHomeScreen> {
           _knownDocIds.add(change.doc.id);
 
           final newDoc = change.doc.data() as Map<String, dynamic>;
-          final location = newDoc['location'] ?? 'Unknown Location';
-          final magnitude = newDoc['magnitude']?.toString() ?? 'N/A';
-          final date = newDoc['date'] ?? '';
-
-          // // Show notification (popup-style)
-          // NotificationService.showNotification(
-          //   title: 'New Earthquake Reported!',
-          //   body: 'Magnitude $magnitude earthquake at $location. ($date)',
-          // );
+          final municipality = newDoc['Municipality'] ?? 'Unknown Location';
+          final magnitude = newDoc['Mag']?.toString() ?? 'N/A';
+          final date = newDoc['Date'] ?? '';
         }
       }
     });
@@ -157,7 +185,7 @@ class _MyAppHomeScreenState extends State<MyAppHomeScreen> {
                     ),
                   ),
                 ),
-
+                const SizedBox(height: 10),
                 // DASHBOARD
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

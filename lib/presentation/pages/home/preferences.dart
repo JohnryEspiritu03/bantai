@@ -120,7 +120,7 @@ class _PreferencesPageState extends State<PreferencesPage> {
                                 }
                               });
                             },
-                            selectedColor: Colors.green.shade200,
+                            selectedColor: AppColors.primary,
                           );
                         }).toList(),
                       ),
@@ -141,7 +141,7 @@ class _PreferencesPageState extends State<PreferencesPage> {
                                 }
                               });
                             },
-                            selectedColor: Colors.green.shade200,
+                            selectedColor: AppColors.primary,
                           );
                         }).toList(),
                       ),
@@ -166,7 +166,7 @@ class _PreferencesPageState extends State<PreferencesPage> {
                       max: 10,
                       divisions: 20,
                       label: minMagnitude.toStringAsFixed(1),
-                      activeColor: Colors.green,
+                      activeColor: AppColors.primary,
                       onChanged: (val) {
                         setState(() {
                           minMagnitude = val;
@@ -186,12 +186,11 @@ class _PreferencesPageState extends State<PreferencesPage> {
 
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
+                  backgroundColor: AppColors.primary,
                   foregroundColor: Colors.white,
                   textStyle: const TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.bold),
                 ),
                 onPressed: () {
-                  // Save preferences logic here
                   print({
                     'allowNotifications': allowNotifications,
                     'locationScope': locationScope,
@@ -236,7 +235,7 @@ class _PreferencesPageState extends State<PreferencesPage> {
         children: [
           Row(
             children: [
-              Icon(icon, color: Colors.green, size: 28),
+              Icon(icon, color: AppColors.primary, size: 28),
               const SizedBox(width: 12),
               Expanded(
                 child: Column(
@@ -254,10 +253,10 @@ class _PreferencesPageState extends State<PreferencesPage> {
                 value: value,
                 onChanged: enabled ? (bool? value) {
                   if (value != null) {
-                    onChanged!(value); // Call your original onChanged if it's not null
+                    onChanged!(value);
                   }
                 } : null,
-                activeColor: Colors.green,
+                activeColor: AppColors.primary,
               ),
             ],
           ),
