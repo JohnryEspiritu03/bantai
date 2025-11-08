@@ -17,7 +17,7 @@ class _AppMainScreenState extends State<AppMainScreen> {
   void initState() {
     page = [
       const MyAppHomeScreen(),
-      const FavoriteScreen(),
+      const ArchiveScreen(),
       navBarPage(Iconsax.calendar5),
       navBarPage(Iconsax.setting_21),
     ];
