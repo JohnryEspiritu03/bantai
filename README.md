@@ -1,16 +1,38 @@
-# bantai
+# BantayPH
 
-A new Flutter project.
+A Mobile Application For Real-Time Earthquake Monitoring and Alert System
 
-## Getting Started
+## Developers:
 
-This project is a starting point for a Flutter application.
+- Barbacena, Jenny B.
+- Espiritu, Johnry E.
+- Quiñones, James Bryan O.
 
-A few resources to get you started if this is your first Flutter project:
+## Key Features
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+1. Interactive dashboard
+2. Report Submissions Summary
+3. Interactive map
+4. Earthquake Archive
+5. Alert System
+6. Report Submissions
+7. Safety Guides
+8. Preparedness Toolkit
+9. Preferences and Settings
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Installation
+
+1. Close the repository
+   - git clone https://github.com/yourusername/bantai-ph.gitcd bantai-ph
+2. Install dependencies
+   - flutter pub get
+3. Run the app
+   - flutter run
+
+## Dependencies
+- cloud_firestore: Firestore database
+- firebase_core: Firebase initialization
+- provider: State management
+- fl_chart: Charts and statistics
+- iconsax: Icons
+- flutter: SDK
